@@ -1,0 +1,269 @@
+/* إعدادات عامة */
+:root {
+  --primary-color: #27ae60;
+  --background-color: #f0f8ff;
+  --text-color: #333;
+  --error-color: #e74c3c;
+  --success-color: #27ae60;
+  --header-bg: var(--primary-color);
+  --header-text-color: #fff;
+  --btn-bg: var(--primary-color);
+  --btn-text-color: #fff;
+  --btn-hover-bg: #219150;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  direction: rtl;
+  min-height: 100vh;
+}
+
+/* شاشات النظام */
+.screen {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.active-screen {
+  display: flex;
+}
+
+.welcome-content {
+  text-align: center;
+}
+
+#welcomeScreen img#logoImg {
+  max-width: 250px;
+  margin-bottom: 20px;
+}
+
+/* أزرار عامة */
+.btn {
+  background-color: var(--btn-bg);
+  color: var(--btn-text-color);
+  border: none;
+  padding: 10px 18px;
+  margin: 10px 0;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--btn-hover-bg);
+}
+
+/* زر تسجيل خروج */
+.logout-btn {
+  margin-left: 20px;
+}
+
+/* شاشة تسجيل الدخول */
+.login-container {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  width: 320px;
+  max-width: 90vw;
+}
+
+.login-container h2 {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.login-container label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.error-message {
+  color: var(--error-color);
+  margin-bottom: 10px;
+  min-height: 20px;
+  text-align: center;
+}
+
+/* الشاشة الرئيسية */
+main#mainContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ترويسة الصفحة */
+header {
+  background-color: var(--header-bg);
+  color: var(--header-text-color);
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.header-left {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.header-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  background-color: transparent;
+  border: 2px solid var(--header-text-color);
+  color: var(--header-text-color);
+  padding: 6px 15px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+  background-color: var(--btn-text-color);
+  color: var(--btn-bg);
+}
+
+/* أقسام المحتوى */
+.section-content {
+  padding: 20px 30px;
+  background: #fff;
+  flex-grow: 1;
+  overflow-y: auto;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.section-content h2 {
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 5px;
+  font-weight: 700;
+}
+
+/* نماذج الإدخال */
+form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="tel"],
+form input[type="date"],
+form input[type="color"],
+form select {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 5px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* رسائل نجاح */
+.success-message {
+  margin-top: 12px;
+  color: var(--success-color);
+  font-weight: 600;
+  min-height: 24px;
+}
+
+/* الجداول */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+
+table thead {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+/* مودال */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px 25px;
+  width: 360px;
+  max-width: 90vw;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.admin-only {
+  /* تظهر فقط للمسؤول */
+}
+
+/* Responsive للهواتف */
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header-nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .nav-btn {
+    font-size: 0.9rem;
+    padding: 5px 12px;
+  }
+  form input, form select {
+    font-size: 1rem;
+  }
+}
