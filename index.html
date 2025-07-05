@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>نظام إدخال بيانات المختبر البيطري</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- شاشة الترحيب -->
+  <section id="welcomeScreen" class="screen active-screen">
+    <div class="welcome-content">
+      <img id="logoImg" src="default-logo.png" alt="شعار النظام" />
+      <h1>مرحباً بكم في نظام المختبر البيطري</h1>
+      <button id="startBtn" class="btn">ابدأ</button>
+    </div>
+  </section>
+
+  <!-- شاشة تسجيل الدخول -->
+  <section id="loginScreen" class="screen">
+    <div class="login-container">
+      <h2>تسجيل الدخول</h2>
+      <div id="errorMsg" class="error-message"></div>
+      <label for="loginUser">اسم المستخدم:</label>
+      <input type="text" id="loginUser" autocomplete="username" />
+      <label for="loginPass">كلمة المرور:</label>
+      <input type="password" id="loginPass" autocomplete="current-password" />
+      <button id="loginBtn" class="btn">دخول</button>
+    </div>
+  </section>
+
+  <!-- الشاشة الرئيسية -->
+  <main id="mainContainer" style="display:none; flex-direction: column; height: 100vh;">
+    <header>
+      <div class="header-left">
+        المستخدم: <span id="currentUserName">المستخدم</span>
+      </div>
+      <nav class="header-nav">
+        <button id="btnInput" class="nav-btn">إدخال عينة جديدة</button>
+        <button id="btnViewEntries" class="nav-btn">عرض الفحوصات</button>
+        <button id="btnClients" class="nav-btn">سجل العملاء</button>
+        <button id="btnUsers" class="nav-btn admin-only" style="display:none;">إدارة المستخدمين</button>
+        <button id="btnSettings" class="nav-btn admin-only" style="display:none;">الإعدادات</button>
+        <button id="btnLogout" class="nav-btn logout-btn">تسجيل خروج</button>
+      </nav>
+    </header>
+
+    <!-- أقسام المحتوى -->
+    <section id="sectionInput" class="section-content" style="display:none;">
+      <h2>إدخال بيانات الفحص</h2>
+      <form id="formInput">
+        <label for="inputDate">التاريخ:</label>
+        <input type="date" id="inputDate" required />
+
+        <label for="inputLocation">الموقع:</label>
+        <select id="inputLocation" required></select>
+
+        <label for="inputAnimalType">نوع الحيوان:</label>
+        <select id="inputAnimalType" required></select>
+
+        <label for="inputSampleType">نوع العينة:</label>
+        <select id="inputSampleType" required></select>
+
+        <label for="inputTestType">نوع الاختبار:</label>
+        <select id="inputTestType" required></select>
+
+        <label for="inputResult">نتيجة الفحص:</label>
+        <select id="inputResult" required></select>
+
+        <label for="inputInspector">المفتش:</label>
+        <input type="text" id="inputInspector" />
+
+        <label for="inputClientName">اسم العميل:</label>
+        <input type="text" id="inputClientName" required />
+
+        <label for="inputClientPhone">رقم الهاتف:</label>
+        <input type="tel" id="inputClientPhone" required />
+
+        <label for="inputClientAddress">العنوان:</label>
+        <input type="text" id="inputClientAddress" />
+
+        <button type="submit" class="btn">حفظ</button>
+      </form>
+      <div id="inputMessage" class="success-message"></div>
+    </section>
+
+    <section id="sectionView" class="section-content" style="display:none;">
+      <h2>عرض الفحوصات المسجلة</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>الموقع</th>
+            <th>نوع الحيوان</th>
+            <th>نوع العينة</th>
+            <th>نوع الاختبار</th>
+            <th>النتيجة</th>
+            <th>التاريخ</th>
+            <th>المفتش</th>
+            <th>اسم العميل</th>
+            <th>رقم الهاتف</th>
+            <th>العنوان</th>
+          </tr>
+        </thead>
+        <tbody id="tableEntriesBody"></tbody>
+      </table>
+    </section>
+
+    <section id="sectionClients" class="section-content" style="display:none;">
+      <h2>سجل العملاء</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>اسم العميل</th>
+            <th>رقم الهاتف</th>
+            <th>العنوان</th>
+          </tr>
+        </thead>
+        <tbody id="tableClientsBody"></tbody>
+      </table>
+    </section>
+
+    <section id="sectionUsers" class="section-content" style="display:none;">
+      <h2>إدارة المستخدمين</h2>
+      <button id="btnAddUser" class="btn admin-only">إضافة مستخدم جديد</button>
+      <table>
+        <thead>
+          <tr>
+            <th>اسم المستخدم</th>
+            <th>الاسم الكامل</th>
+            <th>الصلاحية</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="tableUsersBody"></tbody>
+      </table>
+    </section>
+
+    <section id="sectionSettings" class="section-content" style="display:none;">
+      <h2>الإعدادات</h2>
+      <label for="locationOptions">المواقع (افصل بين القيم بفاصلة):</label>
+      <input type="text" id="locationOptions" placeholder="مثال: مسلخ غياثي, سوق الظفرة" />
+
+      <label for="animalTypeOptions">أنواع الحيوانات:</label>
+      <input type="text" id="animalTypeOptions" placeholder="مثال: غنم, بقر, جمال" />
+
+      <label for="sampleTypeOptions">أنواع العينات:</label>
+      <input type="text" id="sampleTypeOptions" placeholder="مثال: دم, براز, بول" />
+
+      <label for="testTypeOptions">أنواع الاختبارات:</label>
+      <input type="text" id="testTypeOptions" placeholder="مثال: PCR, ELISA, مزرعة" />
+
+      <label for="resultOptions">نتائج الفحص:</label>
+      <input type="text" id="resultOptions" placeholder="مثال: سلبية, إيجابية" />
+
+      <label for="primaryColorPicker">لون الواجهة الرئيسي:</label>
+      <input type="color" id="primaryColorPicker" />
+
+      <label for="logoURLInput">رابط الشعار (صورة):</label>
+      <input type="text" id="logoURLInput" placeholder="مثال: https://..." />
+
+      <button id="saveSettings" class="btn">حفظ الإعدادات</button>
+    </section>
+
+  </main>
+
+  <!-- مودال إضافة/تعديل المستخدم -->
+  <div id="userModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="closeUserModal" class="close">&times;</span>
+      <h3 id="userModalTitle">إضافة مستخدم جديد</h3>
+      <form id="userForm">
+        <label for="userUsername">اسم المستخدم:</label>
+        <input type="text" id="userUsername" required />
+
+        <label for="userFullName">الاسم الكامل:</label>
+        <input type="text" id="userFullName" required />
+
+        <label for="userPassword">كلمة المرور:</label>
+        <input type="password" id="userPassword" required />
+
+        <label for="userRole">الصلاحية:</label>
+        <select id="userRole">
+          <option value="user">مستخدم</option>
+          <option value="admin">مسؤول</option>
+        </select>
+
+        <button type="submit" class="btn">حفظ المستخدم</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
